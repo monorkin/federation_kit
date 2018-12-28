@@ -7,8 +7,8 @@ FederationKit provides everything you need to create federated web applications.
 
 FederationKit is an extendible set of tools to integrate your web application
 with the
-[ActivityStream 2.0](https://www.w3.org/TR/activitystreams-core/#example-2)
-and/or [ActivityPub](https://www.w3.org/TR/activitypub/#obj) protocols through
+[ActivityStream 2.0](https://www.w3.org/TR/activitystreams-core/)
+and/or [ActivityPub](https://www.w3.org/TR/activitypub/) protocols through
 which it can part take in a federation of applications.
 
 ## Installation
