@@ -10,3 +10,30 @@ module FederationKit
     end
   end
 end
+
+class FederationKit::Object
+end
+
+class FederationKit::Actor < FederationKit::Object
+end
+
+class FederationKit::Link
+end
+
+class FederationKit::Activity < FederationKit::Object
+end
+
+class FederationKit::IntransitiveActivity < FederationKit::Activity
+end
+
+class FederationKit::Collection < FederationKit::Object
+end
+
+class FederationKit::OrderedCollection < FederationKit::Collection
+end
+
+class FederationKit::CollectionPage < FederationKit::Collection
+end
+
+class FederationKit::OrderedCollectionPage < FederationKit::CollectionPage
+end
