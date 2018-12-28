@@ -6,4 +6,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.0] - 2018-12-28
 ### Added
-- Roda/Sequel plugin system (thanks to [@janko-m](https://twin.github.io/the-plugin-system-of-sequel-and-roda/_))
+- Roda/Sequel plugin system (thanks to [@janko-m's blog post](https://twin.github.io/the-plugin-system-of-sequel-and-roda/_))
