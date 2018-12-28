@@ -8,8 +8,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Stanko K.R.']
   spec.email         = ['hey@stanko.io']
 
-  spec.summary       = %q{SHORT}
-  spec.description   = %q{LONG}
+  spec.summary       = %q{
+    FederationKit provides everything you need to create federated web
+    applications
+  }
+  spec.description   = %q{
+    FederationKit is an extendible set of tools to integrate your web
+    application with the ActivityStream and/or ActivityPub protocols through
+    which it can part take in a federation of applications
+  }
   spec.homepage      = 'https://github.com/monorkin/federation_kit'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -19,10 +26,10 @@ Gem::Specification.new do |spec|
 
     spec.metadata["homepage_uri"] = spec.homepage
     spec.metadata["source_code_uri"] = 'https://github.com/monorkin/federation_kit'
-    spec.metadata["changelog_uri"] = 'https://github.com/monorkin/federation_kit/tree/master/CHANGELOG.md'
+    spec.metadata["changelog_uri"] = 'https://github.com/monorkin/federation_kit/blob/master/CHANGELOG.md'
   else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+    raise 'RubyGems 2.0 or newer is required to protect against ' \
+      'public gem pushes.'
   end
 
   # Specify which files should be added to the gem when it is released.
