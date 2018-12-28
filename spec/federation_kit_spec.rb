@@ -14,6 +14,12 @@ RSpec.describe FederationKit do
   end
 
   describe '#plugin' do
+    before do
+      allow(FederationKit::Services::ExtensionApplicator).to(
+        receive(:call).and_return([])
+      )
+    end
+
     RSpec.shared_examples :acts_like_the_plugin_method do |plugin|
       let(:registry) { instance_double('FederationKit::PluginRegistry') }
       let(:plugin_module) { plugin.is_a?(Module) ? plugin : Module.new }

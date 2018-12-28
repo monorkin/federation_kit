@@ -10,3 +10,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - The README
 - The MIT license
 - Roda/Sequel plugin system (thanks to [@janko-m's blog post](https://twin.github.io/the-plugin-system-of-sequel-and-roda/_))
+- Extension to the plugin system that allows any base class to be extended

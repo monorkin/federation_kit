@@ -30,4 +30,5 @@ module FederationKit
   class InvalidPluginModuleError < Error; end
   class PluginAlreadyRegisteredError < Error; end
   class NonExistantPluginError < Error; end
+  class InvalidExtensionsListError < Error; end
 end
