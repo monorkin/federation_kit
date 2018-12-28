@@ -9,10 +9,13 @@ module FederationKit
       end
 
       def call
+        return unless base.is_a?(Module)
+        return unless plugin.is_a?(Module)
         extensions.each do |klass, (instance_module, class_module)|
           klass.include(instance_module) if instance_module
           klass.extend(class_module) if class_module
         end
+        extensions
       end
 
       protected
@@ -37,6 +40,10 @@ module FederationKit
       end
 
       def build_extension(class_name, hash)
+        class_name =
+          FederationKit::Services::StringClassifier.call(class_name)
+          .gsub("#{base}::", '')
+
         return unless base.const_defined?(class_name)
         klass = base.const_get(class_name)
 
