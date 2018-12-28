@@ -1,19 +1,19 @@
 RSpec.describe FederationKit do
   context 'version' do
     it 'has a version number' do
-      expect(FederationKit::VERSION).not_to be nil
+      expect(FederationKit::Version.to_s).not_to be_a String
     end
 
     it 'has a major version number' do
-      expect(FederationKit::MAJOR).not_to be nil
+      expect(FederationKit::Version::MAJOR).not_to be nil
     end
 
     it 'has a minor version number' do
-      expect(FederationKit::MINOR).not_to be nil
+      expect(FederationKit::Version::MINOR).not_to be nil
     end
 
     it 'has a patch version number' do
-      expect(FederationKit::PATCH).not_to be nil
+      expect(FederationKit::Version::PATCH).not_to be nil
     end
   end
 

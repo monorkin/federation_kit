@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FederationKit
   class Service
     class ServiceNotImplementedError < Error; end

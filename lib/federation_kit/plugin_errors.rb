@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FederationKit
   class IncorrectlyRegiseredPluginError < Error
     attr_reader :name
@@ -8,6 +10,19 @@ module FederationKit
 
     def message
       "Plugin '#{name}' didn't correctly register itself"
+    end
+  end
+
+  class InvalidPluginError < Error
+    attr_reader :plugin
+
+    def initialize(plugin)
+      @plugin = plugin
+    end
+
+    def message
+      "'#{plugin}' is not a valid plugin! " \
+        'Valid plugin types are Module or Symbol.'
     end
   end
 
