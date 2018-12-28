@@ -3,9 +3,11 @@
 module FederationKit
   module Services
     class ExtensionApplicator < Service
-      def initialize(plugin, base)
+      def initialize(plugin, base, *args, &block)
         @plugin = plugin
         @base = base
+        @args = args
+        @block = block
       end
 
       def call
@@ -22,13 +24,15 @@ module FederationKit
 
       attr_reader :plugin
       attr_reader :base
+      attr_reader :args
+      attr_reader :block
 
       private
 
       def extensions
         return [] unless plugin.respond_to?(:extends, true)
 
-        extends = plugin.extends
+        extends = plugin.extends(base, *args, &block)
 
         unless extends.is_a?(Enumerable)
           raise(InvalidExtensionsListError)

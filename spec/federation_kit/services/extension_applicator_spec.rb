@@ -12,7 +12,7 @@ RSpec.describe FederationKit::Services::ExtensionApplicator do
 
     let(:plugin) do
       module TestPlugin
-        def self.extends; [TestBase::Foo, :bar, :foo_bar, :__fake]; end
+        def self.extends(_); [TestBase::Foo, :bar, :foo_bar, :__fake]; end
         module FooInstanceMethods; end
         module FooClassMethods; end
         module BarInstanceMethods; end

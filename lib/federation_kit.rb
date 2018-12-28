@@ -18,7 +18,9 @@ module FederationKit
 
     include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
     extend plugin::ClassMethods if defined?(plugin::ClassMethods)
-    FederationKit::Services::ExtensionApplicator.call(plugin, self)
+
+    FederationKit::Services::ExtensionApplicator
+      .call(plugin, self, *args, &block)
 
     if plugin.respond_to?(:configure, true)
       plugin.configure(self, *args, &block)
