@@ -3,8 +3,11 @@
 module FederationKit
   module Plugins
     module Base
-      module ClassMethods; end
-      module InstanceMethods; end
+      FederationKit.plugin_registry.register(:base, self)
+
+      def self.load_dependencies(base)
+        base.plugin(:activity_stream_2)
+      end
     end
   end
 end
