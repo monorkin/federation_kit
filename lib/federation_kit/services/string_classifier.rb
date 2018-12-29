@@ -2,7 +2,7 @@
 
 module FederationKit
   module Services
-    class StringClassifier < Service
+    class StringClassifier < Base
       def initialize(string)
         @string = string&.to_s
       end

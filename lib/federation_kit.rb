@@ -16,8 +16,8 @@ module FederationKit
       plugin.load_dependencies(self, *args, &block)
     end
 
-    include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
     extend plugin::ClassMethods if defined?(plugin::ClassMethods)
+    include plugin::InstanceMethods if defined?(plugin::InstanceMethods)
 
     FederationKit::Services::ExtensionApplicator
       .call(plugin, self, *args, &block)
@@ -32,7 +32,7 @@ require 'federation_kit/version'
 require 'federation_kit/error'
 require 'federation_kit/plugin_errors'
 require 'federation_kit/plugin_registry'
-require 'federation_kit/service'
+require 'federation_kit/services/base'
 require 'federation_kit/services/string_classifier'
 require 'federation_kit/services/extension_applicator'
 require 'federation_kit/plugins/base'

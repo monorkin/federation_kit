@@ -2,7 +2,7 @@
 
 module FederationKit
   module Services
-    class ExtensionApplicator < Service
+    class ExtensionApplicator < Base
       def initialize(plugin, base, *args, &block)
         @plugin = plugin
         @base = base
@@ -14,8 +14,8 @@ module FederationKit
         return unless base.is_a?(Module)
         return unless plugin.is_a?(Module)
         extensions.each do |klass, (instance_module, class_module)|
-          klass.include(instance_module) if instance_module
           klass.extend(class_module) if class_module
+          klass.include(instance_module) if instance_module
         end
         extensions
       end
