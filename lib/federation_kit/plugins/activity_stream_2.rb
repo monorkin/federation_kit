@@ -42,7 +42,7 @@ end
 class FederationKit::CollectionPage < FederationKit::Collection
 end
 
-class FederationKit::OrderedCollectionPage < FederationKit::CollectionPage
+class FederationKit::OrderedCollectionPage < FederationKit::OrderedCollection
 end
 
 module FederationKit
@@ -53,7 +53,9 @@ module FederationKit
       FederationKit.plugin_registry.register(NAME, self)
 
       def self.extends(_base, *_args, &_block)
-        [:object, :link, :activity, :collection]
+        %I[object actor application group organization person service link
+           activity intransitive_activity collection ordered_collection
+           collection_page ordered_collection_page]
       end
 
       def self.load_dependencies(base, *_args, &_block)
@@ -62,9 +64,7 @@ module FederationKit
 
       def self.configure(base, *_args, &_base)
         base.configure do |c|
-          c[NAME] do |p|
-            p.object_context ||= 'https://www.w3.org/ns/activitystreams'
-          end
+          c.object_context ||= 'https://www.w3.org/ns/activitystreams'
         end
       end
 
@@ -174,13 +174,49 @@ module FederationKit
         attribute :duration
 
         def initialize(attrs = {})
-          @context = attrs[:context] || config.object_context
+          @context = attrs[:context] || FederationKit.config.object_context
         end
+      end
 
-        private
+      module ActorInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Actor'
+        end
+      end
 
-        def config
-          FederationKit.config[NAME]
+      module ApplicationInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Application'
+        end
+      end
+
+      module GroupInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Group'
+        end
+      end
+
+      module OrganizationInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Organization'
+        end
+      end
+
+      module PersonInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Person'
+        end
+      end
+
+      module ServiceInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'Service'
         end
       end
 
@@ -222,6 +258,14 @@ module FederationKit
         end
       end
 
+      module IntransitiveActivityInstanceMethods
+        def initialize(attrs = {})
+          super
+          @type = 'IntransitiveActivity'
+          @id = nil
+        end
+      end
+
       module CollectionInstanceMethods
         extend SerializableClassMethods
 
@@ -240,13 +284,42 @@ module FederationKit
       module OrderedCollectionInstanceMethods
         extend SerializableClassMethods
 
+        attribute :ordered_items
+
         def initialize(attrs = {})
           super
           @type = 'OrderedCollection'
         end
 
         def ordered_items
-          items
+          super || items
+        end
+      end
+
+      module CollectionPageInstanceMethods
+        extend SerializableClassMethods
+
+        attribute :part_of
+        attribute :next
+        attribute :prev
+
+        def initialize(attrs = {})
+          super
+          @type = 'CollectionPage'
+        end
+      end
+
+      module OrderedCollectionPageInstanceMethods
+        extend SerializableClassMethods
+
+        attribute :part_of
+        attribute :next
+        attribute :prev
+        attribute :start_index
+
+        def initialize(attrs = {})
+          super
+          @type = 'OrderedCollectionPage'
         end
       end
     end
