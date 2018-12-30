@@ -109,7 +109,8 @@ module FederationKit
       module SerializableInstanceMethods
         def to_h
           self.class.all_attributes.each.with_object({}) do |(attr, opts), hash|
-            name = opts[:meta] ? "@#{attr}".to_sym : attr
+            name = FederationKit::Services::String::CamelCase.call(attr)
+            name = opts[:meta] ? "@#{name}".to_sym : name&.to_sym
             hash[name] = self.public_send(attr)
           end
         end
@@ -292,7 +293,7 @@ module FederationKit
         end
 
         def ordered_items
-          super || items
+          @ordered_items || items
         end
       end
 

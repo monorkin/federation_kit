@@ -1,4 +1,4 @@
-RSpec.describe FederationKit::Services::StringClassifier do
+RSpec.describe FederationKit::Services::String::PascalCase do
   describe '#call' do
     context 'given a capitalized string' do
       it 'returns the coresponding class name' do

@@ -45,7 +45,7 @@ module FederationKit
 
       def build_extension(class_name, hash)
         class_name =
-          FederationKit::Services::StringClassifier.call(class_name)
+          FederationKit::Services::String::PascalCase.call(class_name)
           .gsub("#{base}::", '')
 
         return unless base.const_defined?(class_name)
