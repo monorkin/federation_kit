@@ -3,6 +3,8 @@
 module FederationKit
   module Services
     module String
+      # Converts a String to camel case
+      # e.g. `foo bar_baz-cux` -> `FooBarBazCux`
       class PascalCase < Base
         def initialize(string)
           @string = string&.to_s
@@ -10,6 +12,7 @@ module FederationKit
 
         def call
           return unless string
+
           string
             .gsub(/([A-Z])/, '_\1')
             .gsub(/\t+/, '_')

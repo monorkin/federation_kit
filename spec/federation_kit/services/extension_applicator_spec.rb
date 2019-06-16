@@ -12,11 +12,12 @@ RSpec.describe FederationKit::Services::ExtensionApplicator do
 
     let(:plugin) do
       module TestPlugin
+        extend FederationKit::Concerns::AutoDefineModule
         def self.extends(_); [TestBase::Foo, :bar, :foo_bar, :__fake]; end
-        module FooInstanceMethods; end
-        module FooClassMethods; end
-        module BarInstanceMethods; end
-        module FooBarClassMethods; end
+        module Foo::InstanceMethods; end
+        module Foo::ClassMethods; end
+        module Bar::InstanceMethods; end
+        module FooBar::ClassMethods; end
       end
 
       TestPlugin
@@ -25,10 +26,10 @@ RSpec.describe FederationKit::Services::ExtensionApplicator do
 
     context 'given base and plugin Modules' do
       it 'extends the base with the appropriate class and instance methods' do
-        expect(base::Foo).to receive(:include).with(plugin::FooInstanceMethods)
-        expect(base::Foo).to receive(:extend).with(plugin::FooClassMethods)
-        expect(base::Bar).to receive(:include).with(plugin::BarInstanceMethods)
-        expect(base::FooBar).to receive(:extend).with(plugin::FooBarClassMethods)
+        expect(base::Foo).to receive(:include).with(plugin::Foo::InstanceMethods)
+        expect(base::Foo).to receive(:extend).with(plugin::Foo::ClassMethods)
+        expect(base::Bar).to receive(:include).with(plugin::Bar::InstanceMethods)
+        expect(base::FooBar).to receive(:extend).with(plugin::FooBar::ClassMethods)
         described_class.call(plugin, base)
       end
 

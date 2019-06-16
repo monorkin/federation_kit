@@ -2,6 +2,7 @@
 
 module FederationKit
   module Services
+    # Applies class and instance extensions of a given plugin
     class ExtensionApplicator < Base
       def initialize(plugin, base, *args, &block)
         @plugin = plugin
@@ -13,10 +14,12 @@ module FederationKit
       def call
         return unless base.is_a?(Module)
         return unless plugin.is_a?(Module)
+
         extensions.each do |klass, (instance_module, class_module)|
           klass.extend(class_module) if class_module
           klass.include(instance_module) if instance_module
         end
+
         extensions
       end
 
@@ -46,16 +49,18 @@ module FederationKit
       def build_extension(class_name, hash)
         class_name =
           FederationKit::Services::String::PascalCase.call(class_name)
-          .gsub("#{base}::", '')
+                                                     .gsub("#{base}::", '')
 
         return unless base.const_defined?(class_name)
+
         klass = base.const_get(class_name)
 
         ext_class_names =
-          ["#{class_name}InstanceMethods", "#{class_name}ClassMethods"]
+          ["#{class_name}::InstanceMethods", "#{class_name}::ClassMethods"]
 
         hash[klass] = ext_class_names.map do |ext_class_name|
           next unless plugin.const_defined?(ext_class_name)
+
           plugin.const_get(ext_class_name)
         end
       end

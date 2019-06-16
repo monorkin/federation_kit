@@ -101,14 +101,23 @@ RSpec.describe FederationKit::PluginRegistry do
     end
 
     context 'given a name of an unregistered plugin' do
-      it 'returns nil' do
-        expect(subject.fetch("FAKE-#{third_name}")).to be_nil
+      it 'raises NonExistantPluginError' do
+        expect do
+          subject.fetch("FAKE-#{third_name}")
+        end.to raise_error(FederationKit::NonExistantPluginError)
+      end
+
+      it 'returns the alternate value if given' do
+        object = BasicObject.new
+        expect(subject.fetch("FAKE-#{third_name}", object)).to eq(object)
       end
     end
 
     context 'given nil' do
-      it 'returns nil' do
-        expect(subject.fetch(nil)).to be_nil
+      it 'raises NonExistantPluginError' do
+        expect do
+          subject.fetch("FAKE-#{third_name}")
+        end.to raise_error(FederationKit::NonExistantPluginError)
       end
     end
   end

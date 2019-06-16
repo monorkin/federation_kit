@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
 module FederationKit
   module Plugins
     module Configuration
       FederationKit.plugin_registry.register(:configuration, self)
-
-      require 'ostruct'
 
       class Config < OpenStruct
         def [](attribute, &block)
@@ -39,4 +39,3 @@ module FederationKit
     end
   end
 end
-

@@ -48,6 +48,8 @@ end
 module FederationKit
   module Plugins
     module ActivityStream2
+      extend FederationKit::Concerns::AutoDefineModule
+
       NAME = :activity_stream_2
 
       FederationKit.plugin_registry.register(NAME, self)
@@ -68,7 +70,7 @@ module FederationKit
         end
       end
 
-      module SerializableClassMethods
+      module Serializable::ClassMethods
         def attributes
           @attributes ||= {}
         end
@@ -106,7 +108,7 @@ module FederationKit
         end
       end
 
-      module SerializableInstanceMethods
+      module Serializable::InstanceMethods
         def to_h
           self.class.all_attributes.each.with_object({}) do |(attr, opts), hash|
             name = FederationKit::Services::String::CamelCase.call(attr)
@@ -134,13 +136,13 @@ module FederationKit
         end
       end
 
-      module ObjectClassMethods
-        include SerializableClassMethods
+      module Object::ClassMethods
+        include Serializable::ClassMethods
       end
 
-      module ObjectInstanceMethods
-        extend SerializableClassMethods
-        include SerializableInstanceMethods
+      module Object::InstanceMethods
+        extend Serializable::ClassMethods
+        include Serializable::InstanceMethods
 
         attribute :id
         attribute :type
@@ -179,55 +181,55 @@ module FederationKit
         end
       end
 
-      module ActorInstanceMethods
+      module Actor::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Actor'
         end
       end
 
-      module ApplicationInstanceMethods
+      module Application::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Application'
         end
       end
 
-      module GroupInstanceMethods
+      module Group::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Group'
         end
       end
 
-      module OrganizationInstanceMethods
+      module Organization::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Organization'
         end
       end
 
-      module PersonInstanceMethods
+      module Person::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Person'
         end
       end
 
-      module ServiceInstanceMethods
+      module Service::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'Service'
         end
       end
 
-      module LinkClassMethods
-        include SerializableClassMethods
+      module Link::ClassMethods
+        include Serializable::ClassMethods
       end
 
-      module LinkInstanceMethods
-        extend SerializableClassMethods
-        include SerializableInstanceMethods
+      module Link::InstanceMethods
+        extend Serializable::ClassMethods
+        include Serializable::InstanceMethods
 
         attribute :id
         attribute :name
@@ -243,8 +245,8 @@ module FederationKit
         end
       end
 
-      module ActivityInstanceMethods
-        extend SerializableClassMethods
+      module Activity::InstanceMethods
+        extend Serializable::ClassMethods
 
         attribute :actor
         attribute :object
@@ -259,7 +261,7 @@ module FederationKit
         end
       end
 
-      module IntransitiveActivityInstanceMethods
+      module IntransitiveActivity::InstanceMethods
         def initialize(attrs = {})
           super
           @type = 'IntransitiveActivity'
@@ -267,8 +269,8 @@ module FederationKit
         end
       end
 
-      module CollectionInstanceMethods
-        extend SerializableClassMethods
+      module Collection::InstanceMethods
+        extend Serializable::ClassMethods
 
         attribute :items
         attribute :total_items
@@ -282,8 +284,8 @@ module FederationKit
         end
       end
 
-      module OrderedCollectionInstanceMethods
-        extend SerializableClassMethods
+      module OrderedCollection::InstanceMethods
+        extend Serializable::ClassMethods
 
         attribute :ordered_items
 
@@ -297,8 +299,8 @@ module FederationKit
         end
       end
 
-      module CollectionPageInstanceMethods
-        extend SerializableClassMethods
+      module CollectionPage::InstanceMethods
+        extend Serializable::ClassMethods
 
         attribute :part_of
         attribute :next
@@ -310,8 +312,8 @@ module FederationKit
         end
       end
 
-      module OrderedCollectionPageInstanceMethods
-        extend SerializableClassMethods
+      module OrderedCollectionPage::InstanceMethods
+        extend Serializable::ClassMethods
 
         attribute :part_of
         attribute :next
